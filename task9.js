@@ -1,6 +1,21 @@
-const http = require ('http')
-const routes=require('./Task_9')
-const server=http.createServer(routes.handler)
-//Task_9 can't be accessed from here by routes.method functions
-console.log(routes.someText)
-server.listen(4000);
+// const http = require ('http')
+
+const express=require('express')
+
+const app=express()
+
+app.use((req,res,next)=>{
+    console.log("In the middleware")
+    next() //Allows request to continue to next middleware
+})
+
+app.use((req,res,next)=>{
+    console.log("In another middleware")
+    res.send('{"key1":"value1"}')
+})
+
+// const server=http.createServer(app)
+
+// server.listen(4000);
+
+app.listen(4000)
